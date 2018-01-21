@@ -1,14 +1,15 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
+    "sourceMap": true,
     "module": "esnext",
-    "moduleResolution": "node",
-    "lib": ["es2017", "dom"],
+    "lib": ["esnext", "dom"],
     "jsx": "preserve",
-    "strictFunctionTypes": false, // https://github.com/reactjs/redux/issues/2691
-    "typeRoots": [
-      "../../../node_modules/@types"
-    ]
-  }
+    "strictFunctionTypes": false //, // https://github.com/reactjs/redux/issues/2691
+    // "typeRoots": [
+    //   "../../../node_modules/@types"
+    // ],
+    // "isolatedModules": true
+  },
+  "include": ["./**/*", "../../shared/**/*"]
 }

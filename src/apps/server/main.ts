@@ -1,16 +1,13 @@
-import * as Koa from 'koa'
-import * as Router from 'koa-router'
-import * as bodyParser from 'koa-bodyparser'
-import * as mongoose from 'mongoose'
 import * as HttpStatus from 'http-status-codes'
-import HttpError from '../../errors/HttpError'
+import * as Koa from 'koa'
+import * as bodyParser from 'koa-bodyparser'
+import * as Router from 'koa-router'
+import * as mongoose from 'mongoose'
 import { api } from './controllers'
+;(mongoose as any).Promise = global.Promise
 
-(<any>mongoose).Promise = global.Promise
+const router = new Router().use(api.routes())
 
-const router = new Router()
-  .use(api.routes())
-  
 const app = new Koa()
   .use(bodyParser())
   .use(async (ctx, next) => {
@@ -27,16 +24,20 @@ const app = new Koa()
         <html>
           <body>
             <div id="app" />
+            <script type="text/javascript" src="http://localhost:8080/vendor.js"></script>
             <script type="text/javascript" src="http://localhost:8080/app.js"></script>
           </body>
         </html>
       `
-    }
-    else {
+    } else {
       await next()
     }
   })
 
 mongoose
-  .connect('mongodb://localhost:27017/test', { useMongoClient: true } as any, undefined)
-  .then(() => app.listen(3000, () => console.log('Listening on port 3000!')))
+  .connect(
+    'mongodb://localhost:27017/test',
+    { useMongoClient: true } as any,
+    undefined
+  )
+  .then(() => app.listen(3000, () => console.info('Listening on port 3000!')))

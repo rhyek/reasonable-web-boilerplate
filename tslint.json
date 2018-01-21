@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-config-airbnb",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "strict-boolean-expressions": false,
+    "import-name": false,
+    // "brace-style": "stroustrup",
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case"
+    ],
+    "member-access": false,
+    "interface-name": [true, "never-prefix"],
+    "object-literal-sort-keys": false,
+    // "one-line": false,
+    "array-type": [true, "array"],
+    "no-console": [true, "log"],
+    "object-shorthand-properties-first": false,
+    "jsx-no-multiline-js": false,
+    "no-unused-variable": true,
+    "no-var-requires": false
+  }
+}

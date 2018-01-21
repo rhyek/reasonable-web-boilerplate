@@ -1,16 +1,18 @@
+/* tslint:disable */
 import * as webpack from 'webpack'
 import * as path from 'path'
+import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
 const basePath = path.join(__dirname, '..')
 const port = 8080
 
 const config: webpack.Configuration = {
-  entry: [
-    'react-hot-loader/patch',
-    `${basePath}/main.tsx`
-  ],
+  entry: {
+    app: `${basePath}/main.tsx`
+  },
   output: {
-    filename: 'app.js',
+    filename: '[name].js',
+    chunkFilename: '[name].js',
     publicPath: `http://localhost:${port}/`
   },
   devtool: 'cheap-module-eval-source-map',
@@ -21,48 +23,49 @@ const config: webpack.Configuration = {
       'Access-Control-Allow-Origin': '*'
     },
     overlay: true,
-    clientLogLevel: 'warning'
+    clientLogLevel: 'warning',
+    noInfo: true
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
+  stats: 'minimal',
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: [
           {
-            loader: 'awesome-typescript-loader',
+            loader: 'babel-loader',
             options: {
-              configFileName: `${basePath}/tsconfig.json`,
-              // from https://developer.epages.com/blog/tech-stories/typescript-codesplitting-treeshaking/
-              useBabel: true, 
-              babelOptions: {
-                babelrc: false,
-                presets: [
-                  '@babel/react',
-                  [
-                    '@babel/env',
-                    {
-                      // leave imports as they are
-                      modules: false,
-                      targets: {
-                        browsers: [
-                          // choose browsers you want to support
-                          'last 2 chrome versions'
-                        ]
-                      }
+              presets: [
+                '@babel/react',
+                [
+                  '@babel/env',
+                  {
+                    // leave imports as they are
+                    modules: false,
+                    targets: {
+                      browsers: [
+                        // choose browsers you want to support
+                        'last 2 chrome versions'
+                      ]
                     }
-                  ]
-                ],
-                plugins: [
-                  // support dynamic import syntax, but leave it unchanged
-                  'react-hot-loader/babel',
-                  'babel-plugin-syntax-dynamic-import',
-                  '@babel/plugin-proposal-object-rest-spread'
+                  }
                 ]
-              },
-              babelCore: '@babel/core'
+              ],
+              plugins: [
+                require('react-hot-loader/babel'),
+                // support dynamic import syntax, but leave it unchanged
+                require('babel-plugin-syntax-dynamic-import'),
+                require('@babel/plugin-proposal-object-rest-spread')
+              ]
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
             }
           }
         ]
@@ -85,7 +88,19 @@ const config: webpack.Configuration = {
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js',
+      minChunks: module => {
+        const context = module.context as string
+        return context && context.includes('node_modules')
+      }
+    }),
+    new ForkTsCheckerWebpackPlugin({
+      tsconfig: path.resolve(__dirname, '../tsconfig.json'),
+      tslint: true
+    })
   ]
 }
 

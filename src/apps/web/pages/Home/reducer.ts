@@ -1,7 +1,7 @@
 import { Reducer } from 'redux'
 import { getType } from 'typesafe-actions'
-import actions from './actions'
 import RootAction from '../../redux/root-action'
+import actions from './actions';
 
 export interface State {
   readonly message: string
@@ -13,7 +13,7 @@ const initialState: State = {
 
 const reducer: Reducer<State> = (state = initialState, action: RootAction) => {
   switch (action.type) {
-    case getType(actions.update): 
+    case getType(actions.update):
       return {
         ...state,
         ...action.payload

@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { ChangeEvent } from 'react'
 import RootState from '../../redux/root-state'
-import { State as HomeState } from './reducer'
 import actions from './actions'
+import { State as HomeState } from './reducer'
 
 interface DataProps {
   home: HomeState
@@ -15,7 +14,7 @@ interface ActionProps {
 }
 
 class Component extends React.Component<DataProps & ActionProps> {
-  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     this.props.update(name, value)
   }
@@ -25,7 +24,7 @@ class Component extends React.Component<DataProps & ActionProps> {
 
     return (
       <Main>
-        {/* <img src={require('../../assets/images/smile.png')} /> */}
+        <h1>Home</h1>
         <form>
           <div>
             <label>Message</label>
@@ -59,7 +58,7 @@ const Main = styled.div`
       label {
         display: block;
         :after {
-          content: ':'
+          content: ':';
         }
       }
     }

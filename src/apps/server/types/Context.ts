@@ -5,6 +5,6 @@ interface Request<B = any> extends Koa.Request {
 }
 
 export default interface Context<P = any, B = any> extends Koa.Context {
-  params: P,
+  params: P
   request: Request<B>
 }

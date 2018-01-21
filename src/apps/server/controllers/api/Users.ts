@@ -1,13 +1,13 @@
-import * as Router from 'koa-router'
 import * as HttpStatus from 'http-status-codes'
-import User, { UserModel } from '../../../..//models/User'
-import HttpError from '../../../../errors/HttpError'
-import Context from '../../types/Context';
+import * as Router from 'koa-router'
+import HttpError from '../../../../shared/errors/HttpError'
+import User, { UserModel } from '../../../../shared/models/User'
+import Context from '../../types/Context'
 
 export default new Router({ prefix: '/users' })
 
   .get('/', async (ctx): Promise<User[]> => {
-    return await UserModel.find()
+    return UserModel.find()
   })
 
   .post('/', async (ctx: Context<{}, User>): Promise<User> => {
