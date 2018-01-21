@@ -7,12 +7,16 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "start": "concurrently -k -n \"server,web\" -c \"black.bgYellow.bold,black.bgBlue.bold\" \"yarn watch:server\" \"yarn start:web\"",
-    "watch:server": "nodemon --watch src/apps/server --watch src/shared --ext ts --exec yarn start:server",
-    "start:server": "./node_modules/.bin/tslint --force -p ./src/apps/server && ./node_modules/.bin/ts-node --inspect=3001 ./src/apps/server/main.ts",
-    "start:web": "webpack-dev-server --config ./src/apps/web/.build/webpack.config.dev.ts",
-    "precommit": "pretty-quick --staged",
-    "lint:server": "tslint -p ./src/apps/server"
+    "start":
+      "concurrently -k -n \"server,web\" -c \"black.bgYellow.bold,black.bgBlue.bold\" \"yarn watch:server\" \"yarn start:web\"",
+    "watch:server":
+      "nodemon --watch src/apps/server --watch src/shared --ext ts --exec yarn start:server",
+    "start:server":
+      "./node_modules/.bin/tslint --force -p ./src/apps/server && ./node_modules/.bin/ts-node --inspect=3001 ./src/apps/server/main.ts",
+    "start:web":
+      "webpack-dev-server --config ./src/apps/web/.build/webpack.config.dev.ts",
+    "lint:server": "tslint -p ./src/apps/server",
+    "precommit": "pretty-quick --staged"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -57,6 +61,7 @@
     "concurrently": "^3.5.1",
     "file-loader": "^1.1.6",
     "fork-ts-checker-webpack-plugin": "^0.2.10",
+    "husky": "^0.14.3",
     "nodemon": "^1.14.3",
     "prettier": "1.10.2",
     "pretty-quick": "^1.2.2",

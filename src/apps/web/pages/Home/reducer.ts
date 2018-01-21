@@ -1,7 +1,7 @@
 import { Reducer } from 'redux'
 import { getType } from 'typesafe-actions'
 import RootAction from '../../redux/root-action'
-import actions from './actions';
+import actions from './actions'
 
 export interface State {
   readonly message: string
