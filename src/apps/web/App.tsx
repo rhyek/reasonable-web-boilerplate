@@ -13,14 +13,14 @@ const App = () => (
       <header>
         <img src={require('./assets/images/smile.png')} />
         <nav>
-          <NavLink to="/" exact={true}>
+          <NavLink to="/" exact>
             Home
           </NavLink>
           <NavLink to="/users">Users</NavLink>
         </nav>
       </header>
       <div>
-        <Route path="/" exact={true} component={Home} />
+        <Route path="/" exact component={Home} />
         <Route path="/users" component={Users} />
       </div>
     </Main>

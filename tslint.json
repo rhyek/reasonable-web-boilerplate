@@ -24,6 +24,7 @@
     "no-unused-variable": true,
     "no-var-requires": false,
     "no-submodule-imports": false,
-    "ban-comma-operator": false
+    "ban-comma-operator": false,
+    "jsx-boolean-value": false
   }
 }
