@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "dotenv": "^4.0.0",
     "http-status-codes": "^1.3.0",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
@@ -42,6 +43,7 @@
     "@babel/preset-env": "^7.0.0-beta.36",
     "@babel/preset-react": "^7.0.0-beta.36",
     "@types/chokidar": "^1.7.4",
+    "@types/dotenv": "^4.0.2",
     "@types/koa": "^2.0.43",
     "@types/koa-bodyparser": "^3.0.26",
     "@types/koa-router": "^7.0.27",

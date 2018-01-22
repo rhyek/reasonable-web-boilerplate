@@ -1,3 +1,4 @@
+import * as dotenv from 'dotenv'
 import * as HttpStatus from 'http-status-codes'
 import * as Koa from 'koa'
 import * as bodyParser from 'koa-bodyparser'
@@ -5,6 +6,8 @@ import * as Router from 'koa-router'
 import * as mongoose from 'mongoose'
 import { api } from './controllers'
 ;(mongoose as any).Promise = global.Promise
+
+dotenv.config()
 
 const router = new Router().use(api.routes())
 
@@ -35,9 +38,5 @@ const app = new Koa()
   })
 
 mongoose
-  .connect(
-    'mongodb://localhost:27017/test',
-    { useMongoClient: true } as any,
-    undefined
-  )
+  .connect(process.env.MONGO_URL!, { useMongoClient: true } as any, undefined)
   .then(() => app.listen(3000, () => console.info('Listening on port 3000!')))

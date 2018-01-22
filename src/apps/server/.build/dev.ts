@@ -17,8 +17,10 @@ function resolvePath(filePath: string) {
   return path.join(__dirname, filePath)
 }
 
-const run = lodash.debounce(() => {
-  console.log('Detected change. Restarting server.')
+const run = lodash.debounce((firstTime = false) => {
+  if (!firstTime) {
+    console.log('Detected change. Restarting server.')
+  }
   if (process) {
     kill(process.pid)
   }
@@ -79,7 +81,7 @@ chokidar
         lint(fileName)
       }
     }
-    run()
+    run(true)
   })
   .on('all', (event, fileName) => {
     if (['change'].indexOf(event) > -1) {
