@@ -24,6 +24,8 @@
     "object-shorthand-properties-first": false,
     "jsx-no-multiline-js": false,
     "no-unused-variable": true,
-    "no-var-requires": false
+    "no-var-requires": false,
+    "no-submodule-imports": false,
+    "ban-comma-operator": false
   }
 }

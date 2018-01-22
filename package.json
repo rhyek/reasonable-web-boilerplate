@@ -8,14 +8,10 @@
   "license": "Apache-2.0",
   "scripts": {
     "start":
-      "concurrently -k -n \"server,web\" -c \"black.bgYellow.bold,black.bgBlue.bold\" \"yarn watch:server\" \"yarn start:web\"",
-    "watch:server":
-      "nodemon --watch src/apps/server --watch src/shared --ext ts --exec yarn start:server",
-    "start:server":
-      "./node_modules/.bin/tslint --force -p ./src/apps/server && ./node_modules/.bin/ts-node --inspect=3001 ./src/apps/server/main.ts",
+      "concurrently -k -n \"server,web\" -c \"black.bgYellow.bold,black.bgBlue.bold\" \"yarn start:server\" \"yarn start:web\"",
+    "start:server": "ts-node src/apps/server/.build/dev.ts",
     "start:web":
       "webpack-dev-server --config ./src/apps/web/.build/webpack.config.dev.ts",
-    "lint:server": "tslint -p ./src/apps/server",
     "precommit": "pretty-quick --staged"
   },
   "dependencies": {
@@ -24,6 +20,7 @@
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.3.0",
+    "lodash": "^4.17.4",
     "mongoose": "^4.13.7",
     "react": "^16.2.0",
     "react-async-component": "^1.0.2",
@@ -44,9 +41,11 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.36",
     "@babel/preset-env": "^7.0.0-beta.36",
     "@babel/preset-react": "^7.0.0-beta.36",
+    "@types/chokidar": "^1.7.4",
     "@types/koa": "^2.0.43",
     "@types/koa-bodyparser": "^3.0.26",
     "@types/koa-router": "^7.0.27",
+    "@types/lodash": "^4.14.93",
     "@types/react": "^16.0.31",
     "@types/react-dom": "^16.0.3",
     "@types/react-hot-loader": "^3.0.5",
@@ -58,13 +57,18 @@
     "awesome-typescript-loader": "^3.4.1",
     "babel-loader": "8.0.0-beta.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "chokidar": "^2.0.0",
     "concurrently": "^3.5.1",
+    "cross-spawn": "^5.1.0",
     "file-loader": "^1.1.6",
     "fork-ts-checker-webpack-plugin": "^0.2.10",
+    "glob": "^7.1.2",
     "husky": "^0.14.3",
     "nodemon": "^1.14.3",
     "prettier": "1.10.2",
     "pretty-quick": "^1.2.2",
+    "slash": "^1.0.0",
+    "tree-kill": "^1.2.0",
     "ts-loader": "^3.2.0",
     "ts-node": "^4.1.0",
     "tslint": "^5.8.0",
